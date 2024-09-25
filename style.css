@@ -1,0 +1,62 @@
+* {
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+body {
+    background-color: #f5d09b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+a {
+    color: #971805; 
+}
+
+body > * {
+    max-width: 40rem;
+}
+body > p {
+    line-height: 1.5;
+}
+
+img {
+    max-height: 30vh;
+    margin: 1rem;
+}
+
+@counter-style single-emoji {
+    system: cyclic;
+    symbols: "🗓️" "";
+    suffix: " ";
+}
+
+ul {
+    list-style-type: single-emoji;
+}
+ul li p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 80%;
+}
+
+ol {
+    list-style: none;
+    counter-reset: list-counter -1; /* Start counting at 0 */
+}
+ol li {
+    counter-increment: list-counter;
+    display: inline;
+}
+ol li::before {
+    content: "#" counter(list-counter);
+    font-weight: bold;
+    display: inline-block;
+    width: 2rem;
+    margin-left: -2.2rem;
+    text-align: right;
+}
+ol li p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 80%;
+}
