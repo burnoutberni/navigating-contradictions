@@ -1,5 +1,6 @@
 * {
     font-family: 'Montserrat', Arial, sans-serif;
+    line-height: 1.5;
 }
 body {
     background-color: #f5d09b;
@@ -16,7 +17,6 @@ body > * {
     max-width: 40rem;
 }
 body > p {
-    line-height: 1.5;
     margin-top: 0;
 }
 
@@ -27,17 +27,26 @@ img {
 
 @counter-style single-emoji {
     system: cyclic;
-    symbols: "🗓️" "";
+    symbols: "📚";
     suffix: " ";
 }
 
 ul {
     list-style-type: single-emoji;
 }
-ul li p {
+ul li {
+    margin-bottom: 2rem;
+}
+ul li a {
+    font-weight: bold;
+}
+ul li p:first-of-type {
     margin: 0;
     margin-bottom: 0.5rem;
-    font-size: 80%;
+    font-style: italic;
+}
+ul li p {
+    margin: 0;
 }
 
 ol {
@@ -56,8 +65,16 @@ ol li::before {
     margin-left: -2.2rem;
     text-align: right;
 }
+ol li a {
+    font-weight: bold;
+}
 ol li p {
     margin: 0;
-    margin-bottom: 0.5rem;
+}
+ol li p:first-of-type {
+    font-style: italic;
+}
+ol li p:nth-of-type(2) {
+    margin-bottom: 1rem;
     font-size: 80%;
 }
