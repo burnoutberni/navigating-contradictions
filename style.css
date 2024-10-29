@@ -1,6 +1,9 @@
 * {
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: Solway, serif;
     line-height: 1.5;
+}
+h1, h2, h3, a {
+    font-family: Montserrat, Arial, sans-serif;
 }
 body {
     background-color: #f5d09b;
@@ -10,13 +13,21 @@ body {
     justify-content: center;
 }
 a {
-    color: #971805; 
+    color: #971805;
+    font-weight: bold;
+}
+a:hover,
+a:active,
+a:focus {
+    font-style: italic;
+    text-decoration: underline dashed;
 }
 
 body > * {
     max-width: 40rem;
 }
 body > p {
+    text-align: justify;
     margin-top: 0;
 }
 
@@ -25,28 +36,41 @@ img {
     margin: 1rem;
 }
 
-@counter-style single-emoji {
+@counter-style books {
     system: cyclic;
     symbols: "📚";
     suffix: " ";
 }
 
 ul {
-    list-style-type: single-emoji;
+    list-style-type: books;
+    width: 100%;
 }
 ul li {
     margin-bottom: 2rem;
 }
-ul li a {
-    font-weight: bold;
-}
 ul li p:first-of-type {
     margin: 0;
     margin-bottom: 0.5rem;
-    font-style: italic;
 }
 ul li p {
     margin: 0;
+}
+
+div.newsletter {
+    background-color: #971805;
+    color: white;
+    padding: 1rem;
+}
+div.newsletter h2 {
+    margin: 0;
+}
+div.newsletter p {
+    margin: 0;
+    margin-top: 1rem;
+}
+div.newsletter a {
+    color: white;
 }
 
 ol {
@@ -71,10 +95,7 @@ ol li a {
 ol li p {
     margin: 0;
 }
-ol li p:first-of-type {
-    font-style: italic;
-}
 ol li p:nth-of-type(2) {
     margin-bottom: 1rem;
-    font-size: 80%;
+    font-size: 0.8rem;
 }
