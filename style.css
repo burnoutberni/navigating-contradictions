@@ -25,14 +25,19 @@ a:focus {
 
 body > * {
     max-width: 40rem;
+    width: 100%;
 }
-body > p {
+body p {
     text-align: justify;
     margin-top: 0;
+}
+body h2 {
+    margin-bottom: 0;
 }
 
 img {
     max-height: 30vh;
+    max-width: 30vh;
     margin: 1rem;
 }
 
@@ -42,18 +47,18 @@ img {
     suffix: " ";
 }
 
-ul {
+ul:first-of-type {
     list-style-type: books;
     width: 100%;
 }
-ul li {
+ul:first-of-type li {
     margin-bottom: 2rem;
 }
-ul li p:first-of-type {
+ul:first-of-type li p:first-of-type {
     margin: 0;
     margin-bottom: 0.5rem;
 }
-ul li p {
+ul:first-of-type li p {
     margin: 0;
 }
 
@@ -61,6 +66,7 @@ div.newsletter {
     background-color: #971805;
     color: white;
     padding: 1rem;
+    margin-bottom: 1rem;
 }
 div.newsletter h2 {
     margin: 0;
@@ -98,4 +104,12 @@ ol li p {
 ol li p:nth-of-type(2) {
     margin-bottom: 1rem;
     font-size: 0.8rem;
+}
+
+ul:nth-of-type(2) {
+    list-style-type: '– ';
+}
+
+body > p:last-of-type {
+    text-align: center;
 }
