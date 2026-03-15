@@ -30,6 +30,7 @@ const TIME_FORMATTER = new Intl.DateTimeFormat("de-AT", {
 });
 
 const SITE_ORIGIN = "https://navigating-contradictions.com";
+const ALLOWED_HTTP_PROTOCOLS = new Set(["http:", "https:"]);
 
 function escapeHtml(value) {
   return value
@@ -85,6 +86,28 @@ function normalizeHref(href = "") {
     return decodeURI(withoutOrigin);
   } catch {
     return withoutOrigin;
+  }
+}
+
+function sanitizeUrl(rawHref = "", { allowRelative = true } = {}) {
+  if (!rawHref) {
+    return "";
+  }
+
+  const trimmed = rawHref.trim();
+  try {
+    const parsed = new URL(trimmed, SITE_ORIGIN);
+    if (!ALLOWED_HTTP_PROTOCOLS.has(parsed.protocol)) {
+      return "";
+    }
+
+    if (allowRelative && parsed.origin === SITE_ORIGIN) {
+      return normalizeHref(`${parsed.pathname}${parsed.search}${parsed.hash}`);
+    }
+
+    return parsed.toString();
+  } catch {
+    return "";
   }
 }
 
@@ -149,7 +172,7 @@ function parseStartDate(event) {
 function renderLocation(event) {
   const parts = [];
   const label = event.locationLabel || event.location_name || "";
-  const link = event.location_url || event.locationLink || "";
+  const link = sanitizeUrl(event.location_url || event.locationLink || "");
 
   if (label) {
     if (link) {
@@ -174,17 +197,18 @@ function renderUpcomingItem(event) {
   const dateLabel = WEEKDAY_DATE_FORMATTER.format(event.startAt);
   const timeLabel = TIME_FORMATTER.format(event.startAt);
   const title = escapeHtml(stripOuterQuotes(event.title || event.feedTitle || "Termin"));
-  const href = escapeHtml(normalizeHref(event.href || event.url || "#"));
+  const href = escapeHtml(sanitizeUrl(event.href || event.url || "") || "#");
   const eventPageUrl =
     event.account_username && event.slug
-      ? `https://events.bhayden.at/@${event.account_username}/${event.slug}`
+      ? `https://events.bhayden.at/@${encodeURIComponent(event.account_username)}/${encodeURIComponent(event.slug)}`
       : "";
+  const safeEventPageUrl = sanitizeUrl(eventPageUrl, { allowRelative: false });
   const authorText = event.year
     ? `${event.author || "Unbekannt"} (${event.year})`
     : event.author || "Unbekannt";
   const locationLine = renderLocation(event);
-  const eventPageLine = eventPageUrl
-    ? `                <p class="event-page-link"><a href="${escapeHtml(eventPageUrl)}">Event auf EveryCal</a></p>`
+  const eventPageLine = safeEventPageUrl
+    ? `                <p class="event-page-link"><a href="${escapeHtml(safeEventPageUrl)}">Event auf EveryCal</a></p>`
     : "";
 
   return [
@@ -201,7 +225,7 @@ function renderUpcomingItem(event) {
 function renderPastItem(event) {
   const dateLabel = DATE_FORMATTER.format(event.startAt);
   const title = escapeHtml(stripOuterQuotes(event.title || event.feedTitle || "Termin"));
-  const href = escapeHtml(normalizeHref(event.href || event.url || "#"));
+  const href = escapeHtml(sanitizeUrl(event.href || event.url || "") || "#");
   const authorText = event.year
     ? `${event.author || "Unbekannt"} (${event.year})`
     : event.author || "Unbekannt";
