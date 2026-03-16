@@ -208,7 +208,7 @@ function renderUpcomingItem(event) {
     : event.author || "Unbekannt";
   const locationLine = renderLocation(event);
   const eventPageLine = safeEventPageUrl
-    ? `                <p class="event-page-link"><a href="${escapeHtml(safeEventPageUrl)}">Event auf EveryCal</a></p>`
+    ? `                <everycal-button href="${escapeHtml(safeEventPageUrl)}" size="md"></everycal-button>`
     : "";
 
   return [

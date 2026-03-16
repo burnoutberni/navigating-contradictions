@@ -74,18 +74,9 @@ ul:first-of-type li p {
     margin: 0;
 }
 
-ul:first-of-type li p.event-page-link {
-    margin-top: 0.5rem;
-}
-
-ul:first-of-type li p.event-page-link a {
+ul:first-of-type li everycal-button {
     display: inline-block;
-    border: 1px solid #971805;
-    border-radius: 999px;
-    padding: 0.1rem 0.6rem;
-    text-decoration: none;
-    font-size: 0.85rem;
-    background-color: rgba(151, 24, 5, 0.08);
+    margin-top: 0.5rem;
 }
 
 div.newsletter {
